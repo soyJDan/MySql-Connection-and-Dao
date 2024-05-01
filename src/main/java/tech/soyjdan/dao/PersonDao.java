@@ -78,7 +78,7 @@ public class PersonDao {
 
             String query = "DELETE FROM `" + name + "` WHERE ID = " + id + ";";
 
-            statement.executeQuery(query);
+            statement.execute(query);
             System.out.println("Delete data successful");
 
             MySqlConnection.closeConnection(connection);
@@ -94,10 +94,10 @@ public class PersonDao {
             connection = MySqlConnection.getConnection();
             Statement statement = connection.createStatement();
 
-            String query = "UPDATE `" + name + "` SET " +
-                    "'" + person.getFirstName() + "', " +
-                    "'" + person.getLastName() + "', " +
-                    person.getAge() + " " +
+            String query = "UPDATE " + name + " SET " +
+                    "FIRST_NAME = '" + person.getFirstName() + "', " +
+                    "LAST_NAME = '" + person.getLastName() + "', " +
+                    "AGE = " + person.getAge() + " " +
                     "WHERE ID = " + id + ";";
 
             statement.execute(query);
@@ -150,10 +150,12 @@ public class PersonDao {
             statement.execute(query);
             System.out.println("Select data successful");
 
-            person.setId(statement.getResultSet().getLong("ID"));
-            person.setFirstName(statement.getResultSet().getString("FIRST_NAME"));
-            person.setLastName(statement.getResultSet().getString("LAST_NAME"));
-            person.setAge(statement.getResultSet().getInt("AGE"));
+            while (statement.getResultSet().next()) {
+                person.setId(statement.getResultSet().getLong("ID"));
+                person.setFirstName(statement.getResultSet().getString("FIRST_NAME"));
+                person.setLastName(statement.getResultSet().getString("LAST_NAME"));
+                person.setAge(statement.getResultSet().getInt("AGE"));
+            }
 
             MySqlConnection.closeConnection(connection);
             System.out.println("Close connection successful");
