@@ -11,8 +11,8 @@ public class MySqlConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Juan_1087987548";
-    private static final String DATABASE = "waw";
+    private static final String PASSWORD = "";
+    private static final String DATABASE = "db";
 
     /**
      * Método que crea una conexión a la base de datos
